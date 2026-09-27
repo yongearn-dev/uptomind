@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom Stamp — uptomind</title>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .pd-wrap{ max-width:1080px; margin:0 auto; padding:24px 20px 100px; }
+  .pd-back{ font-size:13px; color:var(--muted); margin-bottom:14px; display:inline-block; }
+  .pd-grid{ display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:flex-start; }
+  @media (max-width:800px){ .pd-grid{ grid-template-columns:1fr; } }
+
+  .gallery-main{ background:#fff; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; aspect-ratio:1/1; }
+  .gallery-main img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .gallery-thumbs{ display:flex; gap:10px; margin-top:10px; flex-wrap:wrap; }
+  .gallery-thumbs button{ width:64px; height:64px; border-radius:8px; overflow:hidden; padding:0; border:2px solid var(--line); background:#fff; }
+  .gallery-thumbs button.active{ border-color:var(--accent); }
+  .gallery-thumbs img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  .pd-title{ font-size:24px; margin-bottom:4px; }
+  .pd-eng{ font-size:12.5px; letter-spacing:1px; color:var(--muted); text-transform:uppercase; margin-bottom:14px; }
+  .pd-desc{ font-size:14px; color:var(--ink-soft); margin-bottom:20px; }
+  .pd-price{ font-size:22px; font-weight:700; margin-bottom:22px; }
+  .pd-price small{ font-size:12px; font-weight:400; color:var(--muted); }
+
+  .option-label{ font-size:13px; font-weight:700; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; }
+  .option-label .selected-val{ font-weight:400; color:var(--accent-dark); }
+  .option-block{ margin-bottom:24px; }
+
+  .pill-row{ display:flex; gap:10px; flex-wrap:wrap; }
+  .pill{ padding:10px 18px; border-radius:999px; border:1px solid var(--line); background:#fff; font-size:13px; font-weight:500; color:var(--ink-soft); }
+  .pill.active{ background:var(--ink); color:#fff; border-color:var(--ink); }
+
+  .handle-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; max-width:320px; }
+  .handle-swatch{ padding:0; border-radius:10px; overflow:hidden; border:2px solid var(--line); aspect-ratio:1/1; background:#fff; }
+  .handle-swatch img, .handle-swatch .img-placeholder{ width:100%; height:100%; }
+  .handle-swatch.active{ border-color:var(--accent); box-shadow:0 0 0 2px rgba(194,130,46,.25); }
+  .handle-caption{ text-align:center; font-size:11px; color:var(--muted); margin-top:4px; }
+
+  .upload-box{
+    border:2px dashed var(--line); border-radius:12px; padding:16px; display:flex; align-items:center; gap:14px;
+    background:#fff;
+  }
+  .upload-preview{ width:64px; height:64px; border-radius:8px; overflow:hidden; flex-shrink:0; background:#F1E9D8; display:flex; align-items:center; justify-content:center; font-size:11px; color:var(--muted); text-align:center; }
+  .upload-preview img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .upload-info{ font-size:12.5px; color:var(--ink-soft); }
+  .upload-info b{ display:block; font-size:13px; color:var(--ink); margin-bottom:2px; }
+
+  textarea.remark{
+    width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit;
+    font-size:13.5px; background:#fff; color:var(--ink); resize:vertical; min-height:70px; box-sizing:border-box;
+  }
+
+  .qty-row{ display:flex; align-items:center; gap:14px; margin-bottom:18px; }
+  .qty-row .qty-ctrl button{ width:30px; height:30px; border-radius:8px; background:#fff; border:1px solid var(--line); font-size:16px; }
+  .qty-row .qty-ctrl{ display:flex; align-items:center; gap:10px; }
+
+  .summary-box{ background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px 16px; font-size:13px; color:var(--ink-soft); margin-bottom:18px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <img class="brand-mark" src="images/logo.png" alt="uptomind logo">
+    <div>
+      <div class="brand-name">uptomind</div>
+      <div class="brand-sub">Handmade Laser-Engraved Wood</div>
+    </div>
+  </div>
+</div>
+
+<div class="pd-wrap">
+  <a class="pd-back" href="index.html">← Back to all products</a>
+
+  <div class="pd-grid">
+    <!-- Gallery -->
+    <div>
+      <div class="gallery-main">
+        <img id="gallery-main-img" data-path="images/stamp-hero.jpg" onerror="placeholderify(this)" src="images/stamp-hero.jpg" alt="Custom stamp">
+      </div>
+      <div class="gallery-thumbs" id="gallery-thumbs"></div>
+    </div>
+
+    <!-- Options -->
+    <div>
+      <div class="pd-eng">Made to Order</div>
+      <h1 class="pd-title">Custom Stamp</h1>
+      <div class="pd-desc">Upload your own design and we'll engrave it onto a stamp — pick the material, shape, size and handle style that fits what you need.</div>
+      <div class="pd-price" id="price-display">฿220<small> /pc</small></div>
+
+      <div class="option-block">
+        <div class="option-label">Upload your design</div>
+        <div class="upload-box">
+          <div class="upload-preview" id="upload-preview">No image yet</div>
+          <div class="upload-info">
+            <b id="upload-filename">No file selected</b>
+            <label class="btn ghost small" for="design-upload" style="display:inline-block;cursor:pointer;">Choose image</label>
+            <input type="file" id="design-upload" accept="image/*" style="display:none;">
+          </div>
+        </div>
+        <div class="hint" style="margin-top:6px;">This site can't send files on its own — after adding to cart, please also attach this same image in LINE when you check out, so we have the original file.</div>
+      </div>
+
+      <div class="option-block">
+        <div class="option-label">Material</div>
+        <div class="pill-row" id="material-row"></div>
+      </div>
+
+      <div class="option-block">
+        <div class="option-label">Shape</div>
+        <div class="pill-row" id="shape-row"></div>
+      </div>
+
+      <div class="option-block">
+        <div class="option-label">Size <span class="selected-val" id="size-selected-label"></span></div>
+        <div class="pill-row" id="size-row"></div>
+      </div>
+
+      <div class="option-block">
+        <div class="option-label">Handle style <span class="selected-val" id="handle-selected-label">A</span></div>
+        <div class="handle-grid" id="handle-grid"></div>
+        <div class="handle-caption">Photos of each handle style will be added soon.</div>
+      </div>
+
+      <div class="option-block">
+        <div class="option-label">Notes <span class="selected-val" id="remark-required-label"></span></div>
+        <textarea class="remark" id="remark" placeholder="Anything we should know — exact dimensions, placement, urgency, etc."></textarea>
+      </div>
+
+      <div class="summary-box" id="summary-text">Wood · Circle · 32mm · Handle A</div>
+
+      <div class="qty-row">
+        <span style="font-size:13px;color:var(--muted);">Quantity</span>
+        <div class="qty-ctrl">
+          <button id="qty-dec">−</button>
+          <span id="qty-val">1</span>
+          <button id="qty-inc">+</button>
+        </div>
+      </div>
+
+      <button class="btn dark" id="add-cart-btn" style="width:100%;padding:13px;">Add to Cart</button>
+    </div>
+  </div>
+</div>
+
+<button class="cart-fab hidden" id="cart-fab">Cart <span class="badge" id="cart-count">0</span></button>
+<div id="toast" class="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="shop-common.js"></script>
+<script>
+/* ================== Product data ==================
+   Prices below are placeholders — edit the numbers in MATERIALS / SHAPES
+   whenever you're ready; nothing else needs to change. */
+const MATERIALS = [
+  { id:'wood',   label:'Wood',   extra:30, galleryKey:'wood' },
+  { id:'rubber', label:'Rubber', extra:0,  galleryKey:'rubber' },
+];
+
+const SHAPES = [
+  { id:'circle',    label:'Circle',
+    sizes:[ { id:'32mm', label:'32mm ⌀', price:220 }, { id:'40mm', label:'40mm ⌀', price:250 } ] },
+  { id:'square',    label:'Square',
+    sizes:[ { id:'32mm', label:'32mm', price:220 }, { id:'40mm', label:'40mm', price:250 } ] },
+  { id:'rectangle', label:'Rectangle',
+    sizes:[ { id:'custom', label:'Custom size (tell us below)', price:280 } ] },
+];
+
+const HANDLES = [
+  { id:'a', label:'Handle A', image:'images/stamp-handle-a.jpg' },
+  { id:'b', label:'Handle B', image:'images/stamp-handle-b.jpg' },
+  { id:'c', label:'Handle C', image:'images/stamp-handle-c.jpg' },
+];
+
+const GALLERY = [
+  { key:'hero',   path:'images/stamp-hero.jpg',   label:'Hero shot' },
+  { key:'wood',   path:'images/stamp-wood.jpg',   label:'Wood stamp example' },
+  { key:'rubber', path:'images/stamp-rubber.jpg', label:'Rubber stamp example' },
+  { key:'a',      path:'images/stamp-handle-a.jpg', label:'Handle A' },
+  { key:'b',      path:'images/stamp-handle-b.jpg', label:'Handle B' },
+  { key:'c',      path:'images/stamp-handle-c.jpg', label:'Handle C' },
+];
+
+/* ================== State ================== */
+let selectedMaterial = MATERIALS[0];
+let selectedShape = SHAPES[0];
+let selectedSize = SHAPES[0].sizes[0];
+let selectedHandle = HANDLES[0];
+let uploadedFileName = null;
+let qty = 1;
+
+/* ================== gallery ================== */
+function renderGallery(activeKey){
+  const thumbs = document.getElementById('gallery-thumbs');
+  thumbs.innerHTML = GALLERY.map(g =>
+    `<button data-key="${g.key}" class="${g.key === activeKey ? 'active' : ''}">
+      <img src="${g.path}" data-path="${g.path}" data-small onerror="placeholderify(this)" alt="${g.label}">
+    </button>`
+  ).join('');
+  thumbs.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => setGalleryMain(btn.getAttribute('data-key'))));
+}
+function setGalleryMain(key){
+  const item = GALLERY.find(g => g.key === key) || GALLERY[0];
+  document.querySelector('.gallery-main').innerHTML =
+    `<img id="gallery-main-img" src="${item.path}" data-path="${item.path}" onerror="placeholderify(this)" alt="${item.label}">`;
+  document.querySelectorAll('#gallery-thumbs button').forEach(b => b.classList.toggle('active', b.getAttribute('data-key') === key));
+}
+
+/* ================== material / shape / size / handle ================== */
+function renderMaterials(){
+  const row = document.getElementById('material-row');
+  row.innerHTML = MATERIALS.map(m => `<button class="pill ${m.id === selectedMaterial.id ? 'active' : ''}" data-id="${m.id}">${m.label}</button>`).join('');
+  row.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+    selectedMaterial = MATERIALS.find(m => m.id === btn.getAttribute('data-id'));
+    renderMaterials();
+    setGalleryMain(selectedMaterial.galleryKey);
+    updateSummary();
+  }));
+}
+function renderShapes(){
+  const row = document.getElementById('shape-row');
+  row.innerHTML = SHAPES.map(s => `<button class="pill ${s.id === selectedShape.id ? 'active' : ''}" data-id="${s.id}">${s.label}</button>`).join('');
+  row.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+    selectedShape = SHAPES.find(s => s.id === btn.getAttribute('data-id'));
+    selectedSize = selectedShape.sizes[0];
+    renderShapes(); renderSizes(); updateSummary();
+  }));
+}
+function renderSizes(){
+  const row = document.getElementById('size-row');
+  row.innerHTML = selectedShape.sizes.map(s => `<button class="pill ${s.id === selectedSize.id ? 'active' : ''}" data-id="${s.id}">${s.label} · ฿${s.price}</button>`).join('');
+  row.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+    selectedSize = selectedShape.sizes.find(s => s.id === btn.getAttribute('data-id'));
+    renderSizes(); updateSummary();
+  }));
+  document.getElementById('remark-required-label').textContent = selectedShape.id === 'rectangle' ? '(please specify dimensions below)' : '(optional)';
+}
+function renderHandles(){
+  const grid = document.getElementById('handle-grid');
+  grid.innerHTML = HANDLES.map(h =>
+    `<button class="handle-swatch ${h.id === selectedHandle.id ? 'active' : ''}" data-id="${h.id}" title="${h.label}">
+      <img src="${h.image}" data-path="${h.image}" onerror="placeholderify(this)" alt="${h.label}">
+    </button>`
+  ).join('');
+  grid.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+    selectedHandle = HANDLES.find(h => h.id === btn.getAttribute('data-id'));
+    renderHandles(); updateSummary();
+  }));
+}
+
+/* ================== upload ================== */
+document.getElementById('design-upload').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  const preview = document.getElementById('upload-preview');
+  const nameEl = document.getElementById('upload-filename');
+  if (!file){
+    uploadedFileName = null;
+    preview.innerHTML = 'No image yet';
+    nameEl.textContent = 'No file selected';
+    return;
+  }
+  uploadedFileName = file.name;
+  nameEl.textContent = file.name;
+  const reader = new FileReader();
+  reader.onload = (ev) => { preview.innerHTML = `<img src="${ev.target.result}" alt="Your design">`; };
+  reader.readAsDataURL(file);
+});
+
+/* ================== summary / price ================== */
+function updateSummary(){
+  document.getElementById('handle-selected-label').textContent = selectedHandle.label.replace('Handle ', '');
+  document.getElementById('size-selected-label').textContent = selectedSize.label;
+  const total = selectedSize.price + selectedMaterial.extra;
+  document.getElementById('price-display').innerHTML = `฿${total}<small> /pc</small>`;
+  document.getElementById('summary-text').textContent =
+    `${selectedMaterial.label} · ${selectedShape.label} · ${selectedSize.label} · ${selectedHandle.label}`;
+}
+
+/* ================== qty ================== */
+document.getElementById('qty-inc').addEventListener('click', () => { qty++; document.getElementById('qty-val').textContent = qty; });
+document.getElementById('qty-dec').addEventListener('click', () => { qty = Math.max(1, qty - 1); document.getElementById('qty-val').textContent = qty; });
+
+/* ================== add to cart ================== */
+document.getElementById('add-cart-btn').addEventListener('click', () => {
+  if (!uploadedFileName){ showToast('Please upload your design image first'); return; }
+  const remark = document.getElementById('remark').value.trim();
+  if (selectedShape.id === 'rectangle' && !remark){
+    document.getElementById('remark').focus();
+    showToast('Please tell us the dimensions you need for a rectangle stamp');
+    return;
+  }
+  const total = selectedSize.price + selectedMaterial.extra;
+  addToCart({
+    id: `stamp-${selectedMaterial.id}-${selectedShape.id}-${selectedSize.id}-${selectedHandle.id}-${Date.now()}`,
+    name: `Custom Stamp — ${selectedShape.label}`,
+    price: total,
+    qty: qty,
+    customNote: `Material: ${selectedMaterial.label} | Size: ${selectedSize.label} | Handle: ${selectedHandle.label} | Design file: ${uploadedFileName} (attach it again in LINE)${remark ? ` | Notes: ${remark}` : ''}`,
+  });
+  showToast(`Added to cart: ${selectedShape.label} stamp x${qty} — don't forget to attach your image in LINE`);
+});
+
+/* ================== init ================== */
+renderGallery('hero');
+renderMaterials();
+renderShapes();
+renderSizes();
+renderHandles();
+updateSummary();
+</script>
+</body>
+</html>

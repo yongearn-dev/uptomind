@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>uptomind — Handmade Laser-Engraved Wood</title>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <img class="brand-mark" src="images/logo.png" alt="uptomind logo">
+    <div>
+      <div class="brand-name">uptomind</div>
+      <div class="brand-sub">Handmade Laser-Engraved Wood</div>
+    </div>
+  </div>
+</div>
+
+<div class="app">
+  <div class="hero">
+    <h1>The warmth of wood, engraved just for you</h1>
+    <p>Earrings, brooches, bookmarks, stamps and keychains — all handmade with laser engraving. Some styles support custom text, with a live preview before you order.</p>
+  </div>
+
+  <div id="cat-tabs" class="cat-tabs"></div>
+  <div id="product-grid" class="grid"></div>
+
+  <div class="doodle-teaser">
+    <img src="images/doodle-collection.gif" alt="Hand-drawn doodle characters, coming soon" loading="lazy">
+    <div>
+      <h3>Coming soon: the Doodle Collection</h3>
+      <p>A new line of engraved pieces based on our own hand-drawn characters — stay tuned!</p>
+    </div>
+  </div>
+</div>
+
+<button class="cart-fab hidden" id="cart-fab">
+  Cart <span class="badge" id="cart-count">0</span>
+</button>
+
+<div id="toast" class="toast"></div>
+
+<script src="products.js"></script>
+<script src="shop-common.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

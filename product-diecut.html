@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diecut Shape Earrings — uptomind</title>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .pd-wrap{ max-width:1080px; margin:0 auto; padding:24px 20px 100px; }
+  .pd-back{ font-size:13px; color:var(--muted); margin-bottom:14px; display:inline-block; }
+  .pd-grid{ display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:flex-start; }
+  @media (max-width:800px){ .pd-grid{ grid-template-columns:1fr; } }
+
+  .gallery-main{ background:#fff; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; aspect-ratio:1/1; }
+  .gallery-main img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .gallery-thumbs{ display:flex; gap:10px; margin-top:10px; flex-wrap:wrap; }
+  .gallery-thumbs button{ width:64px; height:64px; border-radius:8px; overflow:hidden; padding:0; border:2px solid var(--line); background:#fff; }
+  .gallery-thumbs button.active{ border-color:var(--accent); }
+  .gallery-thumbs img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  .pd-title{ font-size:24px; margin-bottom:4px; }
+  .pd-eng{ font-size:12.5px; letter-spacing:1px; color:var(--muted); text-transform:uppercase; margin-bottom:14px; }
+  .pd-desc{ font-size:14px; color:var(--ink-soft); margin-bottom:20px; }
+  .pd-price{ font-size:22px; font-weight:700; margin-bottom:22px; }
+  .pd-price small{ font-size:12px; font-weight:400; color:var(--muted); }
+
+  .option-label{ font-size:13px; font-weight:700; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; }
+  .option-label .selected-val{ font-weight:400; color:var(--accent-dark); }
+  .option-block{ margin-bottom:24px; }
+
+  .pill-row{ display:flex; gap:10px; flex-wrap:wrap; }
+  .pill{ padding:10px 18px; border-radius:999px; border:1px solid var(--line); background:#fff; font-size:13px; font-weight:500; color:var(--ink-soft); }
+  .pill.active{ background:var(--ink); color:#fff; border-color:var(--ink); }
+
+  .style-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(84px,1fr)); gap:10px; min-width:0; }
+  .style-swatch{ padding:0; border-radius:12px; overflow:hidden; border:2px solid var(--line); background:#fff; min-width:0; display:flex; flex-direction:column; }
+  .style-swatch img, .style-swatch .img-placeholder{ width:100%; aspect-ratio:1/1; object-fit:cover; display:block; }
+  .style-swatch span{ font-size:11px; color:var(--ink-soft); padding:5px 4px; text-align:center; }
+  .style-swatch.active{ border-color:var(--accent); box-shadow:0 0 0 2px rgba(194,130,46,.25); }
+
+  .qty-row{ display:flex; align-items:center; gap:14px; margin-bottom:18px; }
+  .qty-row .qty-ctrl button{ width:30px; height:30px; border-radius:8px; background:#fff; border:1px solid var(--line); font-size:16px; }
+  .qty-row .qty-ctrl{ display:flex; align-items:center; gap:10px; }
+
+  .summary-box{ background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px 16px; font-size:13px; color:var(--ink-soft); margin-bottom:18px; display:flex; gap:12px; align-items:center; }
+  .summary-box img, .summary-box .img-placeholder{ width:52px; height:52px; border-radius:10px; object-fit:cover; flex-shrink:0; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <img class="brand-mark" src="images/logo.png" alt="uptomind logo">
+    <div>
+      <div class="brand-name">uptomind</div>
+      <div class="brand-sub">Handmade Laser-Engraved Wood</div>
+    </div>
+  </div>
+</div>
+
+<div class="pd-wrap">
+  <a class="pd-back" href="index.html">← Back to all products</a>
+
+  <div class="pd-grid">
+    <!-- Gallery -->
+    <div>
+      <div class="gallery-main">
+        <img id="gallery-main-img" data-path="images/diecut-a1.jpg" onerror="placeholderify(this)" src="images/diecut-a1.jpg" alt="Diecut Shape earrings">
+      </div>
+      <div class="gallery-thumbs" id="gallery-thumbs"></div>
+    </div>
+
+    <!-- Options -->
+    <div>
+      <div class="pd-eng">Diecut Shape</div>
+      <h1 class="pd-title">Diecut Shape Earrings</h1>
+      <div class="pd-desc">Each design comes fully hand-painted in its own fixed color combination — just pick the shape you like and the size.</div>
+      <div class="pd-price" id="price-display">฿140<small> /pair</small></div>
+
+      <div class="option-block">
+        <div class="option-label">Choose a design <span class="selected-val" id="style-selected-label">Flower</span></div>
+        <div class="style-grid" id="style-grid"></div>
+      </div>
+
+      <div class="option-block">
+        <div class="option-label">Size</div>
+        <div class="pill-row" id="size-row"></div>
+      </div>
+
+      <div class="summary-box">
+        <img id="summary-img" data-path="images/diecut-flower.jpg" onerror="placeholderify(this)" src="images/diecut-flower.jpg" alt="Selected design preview">
+        <div id="summary-text">Flower · 10mm</div>
+      </div>
+
+      <div class="qty-row">
+        <span style="font-size:13px;color:var(--muted);">Quantity</span>
+        <div class="qty-ctrl">
+          <button id="qty-dec">−</button>
+          <span id="qty-val">1</span>
+          <button id="qty-inc">+</button>
+        </div>
+      </div>
+
+      <button class="btn dark" id="add-cart-btn" style="width:100%;padding:13px;">Add to Cart</button>
+      <div class="hint" style="margin-top:10px;">Design photos are coming soon. Each design has a fixed color combination — color isn't customizable on this listing.</div>
+    </div>
+  </div>
+</div>
+
+<button class="cart-fab hidden" id="cart-fab">Cart <span class="badge" id="cart-count">0</span></button>
+<div id="toast" class="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="shop-common.js"></script>
+<script>
+/* ================== Product data ==================
+   Photos are placeholders — add a file at each path below whenever it's ready
+   (same filenames, no code changes needed). To add more designs later, just
+   add another entry to STYLES with a new id/name/img. Prices are placeholders too. */
+const STYLES = [
+  { id:'flower',  name:'Flower',  img:'images/diecut-flower.jpg' },
+  { id:'style-2', name:'Design 2', img:'images/diecut-style-2.jpg' },
+  { id:'style-3', name:'Design 3', img:'images/diecut-style-3.jpg' },
+  { id:'style-4', name:'Design 4', img:'images/diecut-style-4.jpg' },
+  { id:'style-5', name:'Design 5', img:'images/diecut-style-5.jpg' },
+  { id:'style-6', name:'Design 6', img:'images/diecut-style-6.jpg' },
+];
+
+const SIZES = [
+  { id:'10mm', label:'10mm', price:140 },
+  { id:'13mm', label:'13mm', price:160 },
+];
+
+const GALLERY = [
+  { path:'images/diecut-a1.jpg',   label:'Finished piece' },
+  { path:'images/diecut-size.jpg', label:'Size comparison' },
+];
+
+/* ================== State ================== */
+let selectedStyle = STYLES[0];
+let selectedSize = SIZES[0];
+let qty = 1;
+
+/* ================== render: gallery ================== */
+function renderGallery(){
+  const thumbs = document.getElementById('gallery-thumbs');
+  thumbs.innerHTML = GALLERY.map((g, i) =>
+    `<button data-i="${i}" class="${i === 0 ? 'active' : ''}"><img src="${g.path}" data-path="${g.path}" data-small onerror="placeholderify(this)" alt="${g.label}"></button>`
+  ).join('');
+  thumbs.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      thumbs.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const item = GALLERY[btn.getAttribute('data-i')];
+      document.querySelector('.gallery-main').innerHTML =
+        `<img id="gallery-main-img" src="${item.path}" data-path="${item.path}" onerror="placeholderify(this)" alt="${item.label}">`;
+    });
+  });
+}
+
+/* ================== render: style grid ================== */
+function renderStyles(){
+  const grid = document.getElementById('style-grid');
+  grid.innerHTML = STYLES.map(s =>
+    `<button class="style-swatch ${s.id === selectedStyle.id ? 'active' : ''}" data-id="${s.id}" title="${s.name}">
+      <img src="${s.img}" data-path="${s.img}" data-small onerror="placeholderify(this)" alt="${s.name}">
+      <span>${s.name}</span>
+    </button>`
+  ).join('');
+  grid.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      selectedStyle = STYLES.find(s => s.id === btn.getAttribute('data-id'));
+      renderStyles();
+      updateSummary();
+    });
+  });
+}
+
+/* ================== render: size ================== */
+function renderSizes(){
+  const row = document.getElementById('size-row');
+  row.innerHTML = SIZES.map(s => `<button class="pill ${s.id === selectedSize.id ? 'active' : ''}" data-id="${s.id}">${s.label} · ฿${s.price}</button>`).join('');
+  row.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+    selectedSize = SIZES.find(s => s.id === btn.getAttribute('data-id'));
+    renderSizes(); updateSummary();
+  }));
+}
+
+/* ================== summary / price ================== */
+function updateSummary(){
+  document.getElementById('style-selected-label').textContent = selectedStyle.name;
+  document.getElementById('price-display').innerHTML = `฿${selectedSize.price}<small> /pair</small>`;
+
+  const summaryImg = document.getElementById('summary-img');
+  summaryImg.src = selectedStyle.img;
+  summaryImg.setAttribute('data-path', selectedStyle.img);
+
+  document.getElementById('summary-text').textContent = `${selectedStyle.name} · ${selectedSize.label}`;
+}
+
+/* ================== qty ================== */
+document.getElementById('qty-inc').addEventListener('click', () => { qty++; document.getElementById('qty-val').textContent = qty; });
+document.getElementById('qty-dec').addEventListener('click', () => { qty = Math.max(1, qty - 1); document.getElementById('qty-val').textContent = qty; });
+
+/* ================== add to cart ================== */
+document.getElementById('add-cart-btn').addEventListener('click', () => {
+  addToCart({
+    id: `diecut-${selectedStyle.id}-${selectedSize.id}`,
+    name: `Diecut Shape Earrings - ${selectedStyle.name}`,
+    price: selectedSize.price,
+    qty: qty,
+    customNote: `Size: ${selectedSize.label}`,
+  });
+  showToast(`Added to cart: ${selectedStyle.name} · ${selectedSize.label} x${qty}`);
+});
+
+/* ================== init ================== */
+renderGallery();
+renderStyles();
+renderSizes();
+updateSummary();
+</script>
+</body>
+</html>

@@ -16,6 +16,8 @@ window.PRODUCTS = [
 
   // Multi-option products — each uses detailPage to link to its own options page instead of adding to cart directly from the card
   { id: 'ear-shapes',   category: 'Earrings', name: 'Shapes Engraving Pattern Earrings', price: 150, desc: '16 patterns, 2 sizes, 18 colors to mix and match', custom: false, image: 'images/shapes-a1.png', detailPage: 'product-shapes-engraving.html' },
-  { id: 'custom-text',  category: 'Custom',   name: 'Custom Engraved Text',              price: 170, desc: 'Type your own text — choose font, finish, color and put it on earrings, a brooch or a keychain', custom: false, image: 'images/custom-text-hero.jpg', detailPage: 'product-custom-text.html' },
-  { id: 'stamp-custom', category: 'Stamps',   name: 'Custom Stamp',                      price: 220, desc: 'Upload your own design — choose material, shape, size and handle style', custom: false, image: 'images/stamp-hero.jpg', detailPage: 'product-custom-stamp.html' },
+  { id: 'custom-text',  category: 'Custom',   name: 'Custom Engraved Text',              price: 170, desc: 'Type your own text — choose font, finish, color and put it on earrings, a brooch or a keychain', custom: false, image: 'images/custom-text-a1.jpg', detailPage: 'product-custom-text.html' },
+  { id: 'stamp-custom', category: 'Stamps',   name: 'Custom Stamp',                      price: 220, desc: 'Upload your own design — choose material, shape, size and handle style', custom: false, image: 'images/stamp-a1.jpg', detailPage: 'product-custom-stamp.html' },
+  { id: 'geoshape',     category: 'Earrings', name: 'Geometric Shape Earrings',          price: 140, desc: '12 simple shapes, 2 sizes, pick your own color and post type', custom: false, image: 'images/geoshape-a1.jpg', detailPage: 'product-geoshape.html' },
+  { id: 'diecut',       category: 'Earrings', name: 'Diecut Shape Earrings',             price: 140, desc: 'Fully hand-painted designs in fixed color combinations — just pick a shape and size', custom: false, image: 'images/diecut-a1.jpg', detailPage: 'product-diecut.html' },
 ];

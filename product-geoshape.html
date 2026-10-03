@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geometric Shape Earrings — uptomind</title>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .pd-wrap{ max-width:1080px; margin:0 auto; padding:24px 20px 100px; }
+  .pd-back{ font-size:13px; color:var(--muted); margin-bottom:14px; display:inline-block; }
+  .pd-grid{ display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:flex-start; }
+  @media (max-width:800px){ .pd-grid{ grid-template-columns:1fr; } }
+
+  .gallery-main{ background:#fff; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; aspect-ratio:1/1; }
+  .gallery-main img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .gallery-thumbs{ display:flex; gap:10px; margin-top:10px; flex-wrap:wrap; }
+  .gallery-thumbs button{ width:64px; height:64px; border-radius:8px; overflow:hidden; padding:0; border:2px solid var(--line); background:#fff; }
+  .gallery-thumbs button.active{ border-color:var(--accent); }
+  .gallery-thumbs img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  .pd-title{ font-size:24px; margin-bottom:4px; }
+  .pd-eng{ font-size:12.5px; letter-spacing:1px; color:var(--muted); text-transform:uppercase; margin-bottom:14px; }
+  .pd-desc{ font-size:14px; color:var(--ink-soft); margin-bottom:20px; }
+  .pd-price{ font-size:22px; font-weight:700; margin-bottom:22px; }
+  .pd-price small{ font-size:12px; font-weight:400; color:var(--muted); }
+
+  .option-label{ font-size:13px; font-weight:700; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; }
+  .option-label .selected-val{ font-weight:400; color:var(--accent-dark); }
+  .option-block{ margin-bottom:24px; }
+
+  .pill-row{ display:flex; gap:10px; flex-wrap:wrap; }
+  .pill{ padding:10px 18px; border-radius:999px; border:1px solid var(--line); background:#fff; font-size:13px; font-weight:500; color:var(--ink-soft); }
+  .pill.active{ background:var(--ink); color:#fff; border-color:var(--ink); }
+
+  .shape-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(52px,1fr)); gap:8px; min-width:0; }
+  .shape-swatch{ padding:8px; border-radius:12px; overflow:hidden; border:2px solid var(--line); aspect-ratio:1/1; background:#fff; position:relative; min-width:0; }
+  .shape-swatch img, .shape-swatch .img-placeholder{ width:100%; height:100%; object-fit:contain; display:block; }
+  .shape-swatch.active{ border-color:var(--accent); box-shadow:0 0 0 2px rgba(194,130,46,.25); }
+
+  .color-row{ display:flex; gap:10px; flex-wrap:wrap; }
+  .color-dot{ width:30px; height:30px; border-radius:999px; border:2px solid var(--line); position:relative; padding:0; }
+  .color-dot.active{ border-color:var(--ink); }
+  .color-dot.active::after{ content:''; position:absolute; inset:-5px; border:1.5px solid var(--ink); border-radius:999px; }
+  .color-dot[data-white]::before{ content:''; position:absolute; inset:0; border-radius:999px; border:1px solid var(--line); }
+
+  .qty-row{ display:flex; align-items:center; gap:14px; margin-bottom:18px; }
+  .qty-row .qty-ctrl button{ width:30px; height:30px; border-radius:8px; background:#fff; border:1px solid var(--line); font-size:16px; }
+  .qty-row .qty-ctrl{ display:flex; align-items:center; gap:10px; }
+
+  .summary-box{ background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px 16px; font-size:13px; color:var(--ink-soft); margin-bottom:18px; display:flex; gap:12px; align-items:center; }
+  .summary-box img, .summary-box .img-placeholder{ width:52px; height:52px; border-radius:10px; object-fit:contain; flex-shrink:0; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <img class="brand-mark" src="images/logo.png" alt="uptomind logo">
+    <div>
+      <div class="brand-name">uptomind</div>
+      <div class="brand-sub">Handmade Laser-Engraved Wood</div>
+    </div>
+  </div>
+</div>
+
+<div class="pd-wrap">
+  <a class="pd-back" href="index.html">← Back to all products</a>
+
+  <div class="pd-grid">
+    <!-- Gallery -->
+    <div>
+      <div class="gallery-main">
+        <img id="gallery-main-img" data-path="images/geoshape-a1.jpg" onerror="placeholderify(this)" src="images/geoshape-a1.jpg" alt="Geometric Shape earrings">
+      </div>
+      <div class="gallery-thumbs" id="gallery-thumbs"></div>
+    </div>
+
+    <!-- Options -->
+    <div>
+      <div class="pd-eng">Geometric Shape</div>
+      <h1 class="pd-title">Geometric Shape Earrings</h1>
+      <div class="pd-desc">12 simple geometric silhouettes, laser-cut and hand-painted in one color of your choice. Pick a shape, a size and a post type to make your pair.</div>
+      <div class="pd-price" id="price-display">฿140<small> /pair</small></div>
+
+      <div class="option-block">
+        <div class="option-label">Choose a shape (12 styles) <span class="selected-val" id="shape-selected-label">Triangle</span></div>
+        <div class="shape-grid" id="shape-grid"></div>
+      </div>
+
+      <div class="option-block">
+        <div class="option-label">Size</div>
+        <div class="pill-row" id="size-row"></div>
+      </div>
+
+      <div class="option-block">
+        <div class="option-label">Color (pick 1) <span class="selected-val" id="color-selected-label">No color selected</span></div>
+        <div class="color-row" id="color-row"></div>
+      </div>
+
+      <div class="option-block">
+        <div class="option-label">Post type</div>
+        <div class="pill-row" id="post-row"></div>
+      </div>
+
+      <div class="summary-box">
+        <img id="summary-img" data-path="images/geoshape-triangle.jpg" onerror="placeholderify(this)" src="images/geoshape-triangle.jpg" alt="Selected shape preview">
+        <div id="summary-text">Triangle · S (7–10mm) · No color selected · Silver post</div>
+      </div>
+
+      <div class="qty-row">
+        <span style="font-size:13px;color:var(--muted);">Quantity</span>
+        <div class="qty-ctrl">
+          <button id="qty-dec">−</button>
+          <span id="qty-val">1</span>
+          <button id="qty-inc">+</button>
+        </div>
+      </div>
+
+      <button class="btn dark" id="add-cart-btn" style="width:100%;padding:13px;">Add to Cart</button>
+      <div class="hint" style="margin-top:10px;">Photos for each shape are coming soon — sizes are an approximate range since exact footprint varies a little by shape.</div>
+    </div>
+  </div>
+</div>
+
+<button class="cart-fab hidden" id="cart-fab">Cart <span class="badge" id="cart-count">0</span></button>
+<div id="toast" class="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="shop-common.js"></script>
+<script>
+/* ================== Product data ==================
+   Photos are placeholders — add a file at each path below whenever it's ready
+   (same filenames, no code changes needed). Prices are placeholders too. */
+const SHAPES = [
+  { id:'triangle', name:'Triangle',         img:'images/geoshape-triangle.jpg' },
+  { id:'diamond',  name:'Diamond',          img:'images/geoshape-diamond.jpg' },
+  { id:'star6',    name:'Six-Point Star',   img:'images/geoshape-star6.jpg' },
+  { id:'star5',    name:'Five-Point Star',  img:'images/geoshape-star5.jpg' },
+  { id:'crescent', name:'Crescent',         img:'images/geoshape-crescent.jpg' },
+  { id:'pentagon', name:'Pentagon',         img:'images/geoshape-pentagon.jpg' },
+  { id:'cross',    name:'Cross',            img:'images/geoshape-cross.jpg' },
+  { id:'star4',    name:'Four-Point Star',  img:'images/geoshape-star4.jpg' },
+  { id:'circle',   name:'Circle',           img:'images/geoshape-circle.jpg' },
+  { id:'lightning',name:'Lightning Bolt',   img:'images/geoshape-lightning.jpg' },
+  { id:'hexagon',  name:'Hexagon',          img:'images/geoshape-hexagon.jpg' },
+  { id:'square',   name:'Square',           img:'images/geoshape-square.jpg' },
+];
+
+const SIZES = [
+  { id:'s', label:'S (7–10mm)',  price:140 },
+  { id:'l', label:'L (10–13mm)', price:160 },
+];
+
+const POSTS = [
+  { id:'silver',  label:'Silver Post',  extra:10 },
+  { id:'plastic', label:'Plastic Post', extra:0 },
+];
+
+const COLORS = window.COLOR_PALETTE;
+
+const GALLERY = [
+  { path:'images/geoshape-a1.jpg',    label:'Finished piece' },
+  { path:'images/geoshape-size.jpg',  label:'Size comparison' },
+  { path:'images/geoshape-color.jpg', label:'Color reference' },
+];
+
+/* ================== State ================== */
+let selectedShape = SHAPES[0];
+let selectedSize = SIZES[0];
+let selectedColor = null;
+let selectedPost = POSTS[0];
+let qty = 1;
+
+/* ================== render: gallery ================== */
+function renderGallery(){
+  const thumbs = document.getElementById('gallery-thumbs');
+  thumbs.innerHTML = GALLERY.map((g, i) =>
+    `<button data-i="${i}" class="${i === 0 ? 'active' : ''}"><img src="${g.path}" data-path="${g.path}" data-small onerror="placeholderify(this)" alt="${g.label}"></button>`
+  ).join('');
+  thumbs.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      thumbs.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const item = GALLERY[btn.getAttribute('data-i')];
+      document.querySelector('.gallery-main').innerHTML =
+        `<img id="gallery-main-img" src="${item.path}" data-path="${item.path}" onerror="placeholderify(this)" alt="${item.label}">`;
+    });
+  });
+}
+
+/* ================== render: shape grid ================== */
+function renderShapes(){
+  const grid = document.getElementById('shape-grid');
+  grid.innerHTML = SHAPES.map(s =>
+    `<button class="shape-swatch ${s.id === selectedShape.id ? 'active' : ''}" data-id="${s.id}" title="${s.name}">
+      <img src="${s.img}" data-path="${s.img}" data-small onerror="placeholderify(this)" alt="${s.name}">
+    </button>`
+  ).join('');
+  grid.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      selectedShape = SHAPES.find(s => s.id === btn.getAttribute('data-id'));
+      renderShapes();
+      updateSummary();
+    });
+  });
+}
+
+/* ================== render: size / post ================== */
+function renderSizes(){
+  const row = document.getElementById('size-row');
+  row.innerHTML = SIZES.map(s => `<button class="pill ${s.id === selectedSize.id ? 'active' : ''}" data-id="${s.id}">${s.label} · ฿${s.price}</button>`).join('');
+  row.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+    selectedSize = SIZES.find(s => s.id === btn.getAttribute('data-id'));
+    renderSizes(); updateSummary();
+  }));
+}
+function renderPosts(){
+  const row = document.getElementById('post-row');
+  row.innerHTML = POSTS.map(p => `<button class="pill ${p.id === selectedPost.id ? 'active' : ''}" data-id="${p.id}">${p.label}${p.extra ? ` (+฿${p.extra})` : ''}</button>`).join('');
+  row.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+    selectedPost = POSTS.find(p => p.id === btn.getAttribute('data-id'));
+    renderPosts(); updateSummary();
+  }));
+}
+
+/* ================== render: color (single-select) ================== */
+function renderColors(){
+  const row = document.getElementById('color-row');
+  row.innerHTML = COLORS.map(c => {
+    const isActive = selectedColor && selectedColor.name === c.name;
+    const whiteAttr = c.name === 'White' ? 'data-white' : '';
+    return `<button class="color-dot ${isActive ? 'active' : ''}" style="background:${c.hex};" data-name="${c.name}" ${whiteAttr} title="${c.name}"></button>`;
+  }).join('');
+  row.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const name = btn.getAttribute('data-name');
+      selectedColor = (selectedColor && selectedColor.name === name) ? null : COLORS.find(c => c.name === name);
+      renderColors();
+      updateSummary();
+    });
+  });
+}
+
+/* ================== summary / price ================== */
+function updateSummary(){
+  document.getElementById('shape-selected-label').textContent = selectedShape.name;
+  const total = selectedSize.price + selectedPost.extra;
+  document.getElementById('price-display').innerHTML = `฿${total}<small> /pair</small>`;
+  const colorLabel = selectedColor ? selectedColor.name : 'No color selected';
+  document.getElementById('color-selected-label').textContent = colorLabel;
+
+  const summaryImg = document.getElementById('summary-img');
+  summaryImg.src = selectedShape.img;
+  summaryImg.setAttribute('data-path', selectedShape.img);
+
+  document.getElementById('summary-text').textContent =
+    `${selectedShape.name} · ${selectedSize.label} · ${colorLabel} · ${selectedPost.label}`;
+}
+
+/* ================== qty ================== */
+document.getElementById('qty-inc').addEventListener('click', () => { qty++; document.getElementById('qty-val').textContent = qty; });
+document.getElementById('qty-dec').addEventListener('click', () => { qty = Math.max(1, qty - 1); document.getElementById('qty-val').textContent = qty; });
+
+/* ================== add to cart ================== */
+document.getElementById('add-cart-btn').addEventListener('click', () => {
+  if (!selectedColor){ showToast('Please select a color'); return; }
+  const total = selectedSize.price + selectedPost.extra;
+  addToCart({
+    id: `geoshape-${selectedShape.id}-${selectedSize.id}-${selectedColor.name}-${selectedPost.id}`,
+    name: `Geometric Shape Earrings - ${selectedShape.name}`,
+    price: total,
+    qty: qty,
+    customNote: `Size: ${selectedSize.label} | Color: ${selectedColor.name} | Post: ${selectedPost.label}`,
+  });
+  showToast(`Added to cart: ${selectedShape.name} · ${selectedSize.label} · ${selectedColor.name} x${qty}`);
+});
+
+/* ================== init ================== */
+renderGallery();
+renderShapes();
+renderSizes();
+renderPosts();
+renderColors();
+updateSummary();
+</script>
+</body>
+</html>

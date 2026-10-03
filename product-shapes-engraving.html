@@ -17,7 +17,7 @@
 
   .gallery-main{ background:#fff; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; aspect-ratio:1/1; }
   .gallery-main img{ width:100%; height:100%; object-fit:cover; display:block; }
-  .gallery-thumbs{ display:flex; gap:10px; margin-top:10px; }
+  .gallery-thumbs{ display:flex; gap:10px; margin-top:10px; flex-wrap:wrap; }
   .gallery-thumbs button{ width:64px; height:64px; border-radius:8px; overflow:hidden; padding:0; border:2px solid var(--line); background:#fff; }
   .gallery-thumbs button.active{ border-color:var(--accent); }
   .gallery-thumbs img{ width:100%; height:100%; object-fit:cover; display:block; }
@@ -32,9 +32,8 @@
   .option-label .selected-val{ font-weight:400; color:var(--accent-dark); }
   .option-block{ margin-bottom:24px; }
 
-  .pattern-grid{ display:grid; grid-template-columns:repeat(8,1fr); gap:8px; }
-  @media (max-width:520px){ .pattern-grid{ grid-template-columns:repeat(4,1fr); } }
-  .pattern-swatch{ padding:0; border-radius:999px; overflow:hidden; border:2px solid var(--line); aspect-ratio:1/1; background:#fff; position:relative; }
+  .pattern-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(46px,1fr)); gap:8px; min-width:0; }
+  .pattern-swatch{ padding:0; border-radius:999px; overflow:hidden; border:2px solid var(--line); aspect-ratio:1/1; background:#fff; position:relative; min-width:0; }
   .pattern-swatch img{ width:100%; height:100%; object-fit:cover; display:block; }
   .pattern-swatch.active{ border-color:var(--accent); box-shadow:0 0 0 2px rgba(194,130,46,.25); }
 
@@ -164,8 +163,6 @@ const COLORS = window.COLOR_PALETTE;
 
 const GALLERY = [
   { src:'images/shapes-a1.png', label:'Finished piece' },
-  { src:'images/shapes-a2.png', label:'Finished piece' },
-  { src:'images/shapes-a3.png', label:'Finished piece' },
   { src:'images/shapes-all.png', label:'16 patterns' },
   { src:'images/shapes-color.png', label:'Color reference' },
   { src:'images/shapes-size.png', label:'Size comparison' },

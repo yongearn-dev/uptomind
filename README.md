@@ -11,9 +11,23 @@
 - `products.js` — product data (edit this file to add/change/remove products)
 - `images/` — logo, favicon, product photos, pattern thumbnails, doodle collection teaser
 
+## Image naming convention
+Across every listing, the main/first gallery photo is always named `..._a1.jpg` (or `.png`) — e.g. `shapes-a1.png`, `custom-text-a1.jpg`, `stamp-a1.jpg`, `geoshape-a1.jpg`, `diecut-a1.jpg`. Keep using `a1` for the main shot on any new listing added later, so naming stays consistent site-wide.
+
+## Photos still needed for the Geometric Shape page
+- `images/geoshape-a1.jpg` — main hero shot
+- `images/geoshape-size.jpg` — size comparison (S vs L)
+- `images/geoshape-color.jpg` — color reference
+- One photo per shape, used as the clickable swatch: `images/geoshape-triangle.jpg`, `-diamond.jpg`, `-star6.jpg`, `-star5.jpg`, `-crescent.jpg`, `-pentagon.jpg`, `-cross.jpg`, `-star4.jpg`, `-circle.jpg`, `-lightning.jpg`, `-hexagon.jpg`, `-square.jpg`
+
+## Photos still needed for the Diecut Shape page
+- `images/diecut-a1.jpg` — main hero shot
+- `images/diecut-size.jpg` — size comparison
+- One photo per design: `images/diecut-flower.jpg`, `-style-2.jpg` through `-style-6.jpg` (6 placeholder slots for now — to add a 7th design later, just add one more entry to `STYLES` near the bottom of `product-diecut.html` with its own id/name/filename)
+
 ## Photos still needed for the Custom Stamp page
 Same idea as the Custom Text page — drop files into `images/` with these exact names and they'll appear automatically:
-- `images/stamp-hero.jpg` — main hero shot
+- `images/stamp-a1.jpg` — main hero shot
 - `images/stamp-wood.jpg` — wood stamp example (shown when Material = Wood)
 - `images/stamp-rubber.jpg` — rubber stamp example (shown when Material = Rubber)
 - `images/stamp-handle-a.jpg`, `images/stamp-handle-b.jpg`, `images/stamp-handle-c.jpg` — the three handle styles (also used as the clickable option swatches)
@@ -24,7 +38,7 @@ Prices for each shape/size, and the wood/rubber price difference, are placeholde
 
 ## Photos still needed for the Custom Engraved Text page
 This page works right now with placeholder boxes — just drop your photos into `images/` using these exact filenames and they'll appear automatically, no code changes needed:
-- `images/custom-text-hero.jpg` — main hero shot
+- `images/custom-text-a1.jpg` — main hero shot
 - `images/custom-text-earrings.jpg` — example on earrings
 - `images/custom-text-brooch.jpg` — example on a brooch
 - `images/custom-text-keychain.jpg` — example on a keychain
